@@ -12,6 +12,13 @@ exports.seed = function (knex) {
           city: 'Atlanta',
           country: 'USA',
         },
+        {
+          id: 2,
+          name: 'Warehouse2',
+          address: '1234 Blake Ave',
+          city: 'Houston',
+          country: 'USA',
+        },
       ]);
     });
 };
