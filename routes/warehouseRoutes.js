@@ -17,7 +17,6 @@ router
       });
   })
   .post((req, res) => {
-    console.log(req.body);
     knex('warehouses')
       .insert(req.body)
       .then((data) => {
@@ -29,6 +28,17 @@ router
       });
   });
 
-router.route('/');
+router.route('/:id').get((req, res) => {
+  knex
+    .select('*')
+    .from('warehouses')
+    .where({ id: req.params.id.toString() })
+    .then((data) => {
+      res.status(200).json(data);
+    })
+    .catch((err) => {
+      res.status(400).json(err);
+    });
+});
 
 module.exports = router;
