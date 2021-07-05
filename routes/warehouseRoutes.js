@@ -20,7 +20,6 @@ router
     knex('warehouses')
       .insert(req.body)
       .then((data) => {
-        console.log(data);
         res.status(200).json(data);
       })
       .catch((err) => {
@@ -28,17 +27,30 @@ router
       });
   });
 
-router.route('/:id').get((req, res) => {
-  knex
-    .select('*')
-    .from('warehouses')
-    .where({ id: req.params.id.toString() })
-    .then((data) => {
-      res.status(200).json(data);
-    })
-    .catch((err) => {
-      res.status(400).json(err);
-    });
-});
+router
+  .route('/:id')
+  .get((req, res) => {
+    knex
+      .select('*')
+      .from('warehouses')
+      .where({ id: req.params.id.toString() })
+      .then((data) => {
+        res.status(200).json(data);
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  })
+  .delete((req, res) => {
+    knex('warehouses')
+      .where({ id: req.params.id.toString() })
+      .del()
+      .then((data) => {
+        res.status(204).send();
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
+  });
 
 module.exports = router;
