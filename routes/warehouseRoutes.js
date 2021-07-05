@@ -51,6 +51,17 @@ router
       .catch((err) => {
         res.status(400).json(err);
       });
+  })
+  .patch((req, res) => {
+    knex('warehouses')
+      .where({ id: req.params.id.toString() })
+      .update(req.body)
+      .then((data) => {
+        res.status(201).json({ status: 'Warehouse patched', data });
+      })
+      .catch((err) => {
+        res.status(400).json(err);
+      });
   });
 
 module.exports = router;
